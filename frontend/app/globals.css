@@ -1,0 +1,321 @@
+:root {
+  --bg: #f4f7fb;
+  --panel: #ffffff;
+  --ink: #182433;
+  --muted: #66758a;
+  --line: #d9e1ec;
+  --accent: #1769aa;
+  --accent-dark: #0f4f85;
+  --danger: #b42318;
+  --success: #16775f;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 28px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  font-weight: 800;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+}
+
+nav a,
+.button,
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 9px 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.button:disabled,
+.iconButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.shell {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.pageHeader h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+}
+
+.pageHeader p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 820px;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+tr.sessionRow {
+  cursor: pointer;
+}
+
+tr.sessionRow:hover {
+  background: #f8fbff;
+}
+
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.status {
+  padding: 24px;
+  color: var(--muted);
+}
+
+.error {
+  padding: 16px;
+  color: var(--danger);
+  background: #fff2f0;
+  border: 1px solid #ffd1cc;
+  border-radius: 8px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+}
+
+.timeline {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.timelineIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: var(--accent);
+}
+
+.timelineIcon.click {
+  background: var(--success);
+}
+
+.timelineBody {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 14px;
+  background: white;
+}
+
+.timelineBody h2 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+.timelineMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.toolbar select {
+  flex: 1 1 360px;
+  min-width: 0;
+  max-width: 720px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: white;
+}
+
+.heatmapFrame {
+  position: relative;
+  height: min(720px, 72vh);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(23, 105, 170, 0.08), transparent 38%),
+    linear-gradient(#e3ebf5 1px, transparent 1px),
+    linear-gradient(90deg, #e3ebf5 1px, transparent 1px),
+    #ffffff;
+  background-size: auto, 48px 48px, 48px 48px, auto;
+  overflow: hidden;
+}
+
+.heatmapFrame::before,
+.heatmapFrame::after {
+  position: absolute;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.heatmapFrame::before {
+  content: "top of page";
+  left: 14px;
+  top: 14px;
+}
+
+.heatmapFrame::after {
+  content: "lower page";
+  left: 14px;
+  bottom: 14px;
+}
+
+.heatmapScaleLabel {
+  position: absolute;
+  right: 14px;
+  top: 12px;
+  z-index: 3;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(207, 217, 230, 0.9);
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+.heatmapOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heatmapDot {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  margin-left: -17px;
+  margin-top: -17px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(185, 28, 28, 0.92) 0%, rgba(220, 38, 38, 0.5) 34%, rgba(220, 38, 38, 0.16) 60%, rgba(220, 38, 38, 0) 76%);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  z-index: 2;
+}
+
+@media (max-width: 700px) {
+  .topbar,
+  .pageHeader {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  nav {
+    width: 100%;
+  }
+
+  nav a {
+    flex: 1;
+    justify-content: center;
+  }
+}
