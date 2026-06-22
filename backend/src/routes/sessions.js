@@ -2,6 +2,7 @@ import express from 'express';
 import { Event } from '../models/Event.js';
 import { asyncHandler } from '../middleware/asyncHandler.js';
 import { AppError } from '../middleware/errors.js';
+import { buildTimestampMatch } from '../utils/dateRange.js';
 
 const router = express.Router();
 
@@ -17,8 +18,10 @@ router.get(
     const page = parsePositiveInt(req.query.page, 1, 10_000);
     const limit = parsePositiveInt(req.query.limit, 20, 100);
     const skip = (page - 1) * limit;
+    const timestampMatch = buildTimestampMatch(req.query);
 
     const [result] = await Event.aggregate([
+      ...(Object.keys(timestampMatch).length ? [{ $match: timestampMatch }] : []),
       {
         $group: {
           _id: '$session_id',
@@ -69,7 +72,8 @@ router.get(
       throw new AppError('sessionId is required', 400, 'VALIDATION_ERROR');
     }
 
-    const events = await Event.find({ session_id: sessionId })
+    const timestampMatch = buildTimestampMatch(req.query);
+    const events = await Event.find({ session_id: sessionId, ...timestampMatch })
       .sort({ timestamp: 1 })
       .select('-_id session_id event_type page_url timestamp client_timestamp x y viewport_width viewport_height user_agent')
       .lean();

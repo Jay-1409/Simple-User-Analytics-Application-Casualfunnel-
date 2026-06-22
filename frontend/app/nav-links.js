@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 
 const links = [
   { href: '/sessions', label: 'Sessions' },
-  { href: '/heatmap', label: 'Heatmap' }
+  { href: '/heatmap', label: 'Heatmap' },
+  { href: '/funnels', label: 'Funnels' }
 ];
 
 export default function NavLinks() {

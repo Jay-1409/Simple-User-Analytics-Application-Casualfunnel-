@@ -7,6 +7,7 @@ import { env } from './config/env.js';
 import { eventsRouter } from './routes/events.js';
 import { sessionsRouter } from './routes/sessions.js';
 import { heatmapRouter } from './routes/heatmap.js';
+import { funnelsRouter } from './routes/funnels.js';
 import { errorHandler, notFound, AppError } from './middleware/errors.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -36,6 +37,7 @@ app.get('/health', (_req, res) => {
 
 app.use('/api/events', eventsRouter);
 app.use('/api/sessions', sessionsRouter);
+app.use('/api/funnels', funnelsRouter);
 app.use('/api', heatmapRouter);
 
 app.use(notFound);

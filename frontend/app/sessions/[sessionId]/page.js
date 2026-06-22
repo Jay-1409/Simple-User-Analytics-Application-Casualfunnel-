@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { MousePointer2, FileText, ArrowLeft } from 'lucide-react';
 import { fetchSessionEvents } from '../../../lib/api';
 
@@ -14,6 +15,11 @@ function formatDate(value) {
 
 export default function SessionEventsPage({ params }) {
   const sessionId = decodeURIComponent(params.sessionId);
+  const searchParams = useSearchParams();
+  const filters = {
+    from: searchParams.get('from') || '',
+    to: searchParams.get('to') || ''
+  };
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -23,7 +29,7 @@ export default function SessionEventsPage({ params }) {
     setLoading(true);
     setError('');
 
-    fetchSessionEvents(sessionId)
+    fetchSessionEvents(sessionId, filters)
       .then((payload) => {
         if (active) setEvents(payload.data || []);
       })
@@ -37,7 +43,7 @@ export default function SessionEventsPage({ params }) {
     return () => {
       active = false;
     };
-  }, [sessionId]);
+  }, [sessionId, filters.from, filters.to]);
 
   return (
     <>
@@ -45,6 +51,11 @@ export default function SessionEventsPage({ params }) {
         <div>
           <h1>Session Journey</h1>
           <p className="mono">{sessionId}</p>
+          {filters.from || filters.to ? (
+            <p>
+              Filtered {filters.from ? `from ${filters.from}` : ''} {filters.to ? `to ${filters.to}` : ''}
+            </p>
+          ) : null}
         </div>
         <Link className="button" href="/sessions">
           <ArrowLeft size={16} /> Back

@@ -13,7 +13,7 @@ Lightweight session analytics with a standalone Express ingestion API, append-on
 
 ## Architecture
 
-The browser SDK generates or refreshes a session id, queues `page_view` and `click` events, and flushes batches every 5 seconds, at 10 queued events, or during unload with `navigator.sendBeacon`. The API validates the full batch, stamps the authoritative server `timestamp`, stores the browser's `client_timestamp` separately, and inserts with `insertMany`. MongoDB remains an append-only event log; sessions are computed with `$group` over `session_id`, and heatmaps query click events by page URL.
+The browser SDK generates or refreshes a session id, queues `page_view` and `click` events, records page views on hash/history URL changes, and flushes batches every 5 seconds, at 10 queued events, or during unload with `navigator.sendBeacon`. The API validates the full batch, stamps the authoritative server `timestamp`, stores the browser's `client_timestamp` separately, and inserts with `insertMany`. MongoDB remains an append-only event log; sessions are computed with `$group` over `session_id`, and heatmaps query click events by page URL.
 
 ## Setup With Docker
 
@@ -90,9 +90,9 @@ Response:
 { "accepted": 1 }
 ```
 
-### `GET /api/sessions?page=1&limit=20`
+### `GET /api/sessions?page=1&limit=20&from=2026-06-22T00:00:00.000Z&to=2026-06-22T23:59:59.999Z`
 
-Returns paginated sessions derived from events.
+Returns paginated sessions derived from events. `from` and `to` are optional ISO date filters applied to the server-set event `timestamp`.
 
 ```json
 {
@@ -111,11 +111,11 @@ Returns paginated sessions derived from events.
 
 ### `GET /api/sessions/:sessionId/events`
 
-Returns ordered events for one session. Returns `404` when the session has no events.
+Returns ordered events for one session. Supports the same optional `from` and `to` timestamp filters. Returns `404` when the session has no events in the selected range.
 
-### `GET /api/heatmap?page_url=http%3A%2F%2Flocalhost%3A4000%2Fdemo.html`
+### `GET /api/heatmap?page_url=http%3A%2F%2Flocalhost%3A4000%2Fdemo.html&from=2026-06-22T00:00:00.000Z&to=2026-06-22T23:59:59.999Z`
 
-Returns click coordinates and captured viewport dimensions for the selected page.
+Returns click coordinates and captured viewport dimensions for the selected page. `from` and `to` are optional ISO date filters.
 
 ```json
 {
@@ -133,7 +133,45 @@ Returns click coordinates and captured viewport dimensions for the selected page
 
 ### `GET /api/pages`
 
-Returns distinct tracked page URLs for the dashboard dropdown.
+Returns distinct tracked page URLs for the dashboard dropdown. Supports optional `from`, `to`, and `event_type=page_view|click` filters so views can request pages relevant to their query type.
+
+### `POST /api/funnels/analyze`
+
+Analyzes ordered page-view progression by session. `steps` must contain 2-4 exact tracked page URLs. A session only reaches a later step if the matching `page_view` occurs after the previous matched step timestamp.
+
+Request:
+
+```json
+{
+  "steps": [
+    "http://localhost:4000/demo.html",
+    "http://localhost:4000/demo.html#products"
+  ]
+}
+```
+
+Response:
+
+```json
+{
+  "data": [
+    {
+      "step": "http://localhost:4000/demo.html",
+      "stepIndex": 1,
+      "sessionsReached": 42,
+      "conversionRate": 100,
+      "dropoffFromPrevious": null
+    },
+    {
+      "step": "http://localhost:4000/demo.html#products",
+      "stepIndex": 2,
+      "sessionsReached": 18,
+      "conversionRate": 42.857142857142854,
+      "dropoffFromPrevious": 57.14285714285714
+    }
+  ]
+}
+```
 
 All errors use:
 

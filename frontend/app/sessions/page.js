@@ -25,13 +25,27 @@ export default function SessionsPage() {
   const [payload, setPayload] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [filters, setFilters] = useState({ from: '', to: '' });
+
+  function updateFilter(name, value) {
+    setFilters((current) => ({ ...current, [name]: value }));
+    setPage(1);
+  }
+
+  function sessionUrl(sessionId) {
+    const params = new URLSearchParams();
+    if (filters.from) params.set('from', filters.from);
+    if (filters.to) params.set('to', filters.to);
+    const query = params.toString();
+    return `/sessions/${encodeURIComponent(sessionId)}${query ? `?${query}` : ''}`;
+  }
 
   useEffect(() => {
     let active = true;
     setLoading(true);
     setError('');
 
-    fetchSessions(page, LIMIT)
+    fetchSessions(page, LIMIT, filters)
       .then((data) => {
         if (active) setPayload(data);
       })
@@ -45,7 +59,7 @@ export default function SessionsPage() {
     return () => {
       active = false;
     };
-  }, [page]);
+  }, [page, filters]);
 
   return (
     <>
@@ -57,6 +71,20 @@ export default function SessionsPage() {
       </div>
 
       {error ? <div className="error">{error}</div> : null}
+
+      <div className="filterBar" aria-label="Session filters">
+        <label>
+          <span>From</span>
+          <input type="datetime-local" value={filters.from} onChange={(event) => updateFilter('from', event.target.value)} />
+        </label>
+        <label>
+          <span>To</span>
+          <input type="datetime-local" value={filters.to} onChange={(event) => updateFilter('to', event.target.value)} />
+        </label>
+        <button className="button" type="button" onClick={() => setFilters({ from: '', to: '' })} disabled={!filters.from && !filters.to}>
+          Clear filters
+        </button>
+      </div>
 
       <section className="panel">
         {loading ? (
@@ -80,7 +108,7 @@ export default function SessionsPage() {
                     <tr
                       className="sessionRow"
                       key={session.session_id}
-                      onClick={() => router.push(`/sessions/${encodeURIComponent(session.session_id)}`)}
+                      onClick={() => router.push(sessionUrl(session.session_id))}
                     >
                       <td className="mono" title={session.session_id}>
                         {shortId(session.session_id)}

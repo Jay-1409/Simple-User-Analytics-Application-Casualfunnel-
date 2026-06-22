@@ -122,6 +122,16 @@
     enqueue(buildBaseEvent('page_view'));
   }
 
+  function trackNavigationPageView(previousUrl) {
+    global.setTimeout(function delayedPageView() {
+      safeRun(function wrapNavigationPageView() {
+        if (global.location.href !== previousUrl) {
+          trackPageView();
+        }
+      });
+    }, 0);
+  }
+
   function trackClick(event) {
     var payload = buildBaseEvent('click');
     // Use pageX/pageY rather than clientX/clientY so coordinates stay stable after scrolling.
@@ -190,6 +200,25 @@
         if (document.visibilityState === 'hidden') {
           flush(true);
         }
+      });
+
+      global.addEventListener('hashchange', function handleHashChange(event) {
+        trackNavigationPageView(event.oldURL);
+      });
+
+      global.addEventListener('popstate', function handlePopState() {
+        trackPageView();
+      });
+
+      ['pushState', 'replaceState'].forEach(function wrapHistoryMethod(method) {
+        if (!global.history || typeof global.history[method] !== 'function') return;
+        var original = global.history[method];
+        global.history[method] = function wrappedHistoryMethod() {
+          var previousUrl = global.location.href;
+          var result = original.apply(this, arguments);
+          trackNavigationPageView(previousUrl);
+          return result;
+        };
       });
 
       global.addEventListener('pagehide', function handlePageHide() {

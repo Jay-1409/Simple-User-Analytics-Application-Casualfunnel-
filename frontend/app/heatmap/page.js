@@ -14,6 +14,7 @@ export default function HeatmapPage() {
   const [loadingClicks, setLoadingClicks] = useState(false);
   const [error, setError] = useState('');
   const [refreshToken, setRefreshToken] = useState(0);
+  const [filters, setFilters] = useState({ from: '', to: '' });
   const referenceWidth = Math.max(1024, ...clicks.map((click) => Number(click.viewport_width) || 0));
   const referenceViewportHeight = Math.max(720, ...clicks.map((click) => Number(click.viewport_height) || 0));
   const maxObservedY = Math.max(700, ...clicks.map((click) => Number(click.y) || 0));
@@ -21,16 +22,20 @@ export default function HeatmapPage() {
   const canvasWidth = Math.max(1, frameSize.width);
   const canvasHeight = Math.max(1, frameSize.height);
 
+  function updateFilter(name, value) {
+    setFilters((current) => ({ ...current, [name]: value }));
+  }
+
   useEffect(() => {
     let active = true;
     setLoadingPages(true);
 
-    fetchPages()
+    fetchPages(filters)
       .then((payload) => {
         if (!active) return;
         const values = payload.data || [];
         setPages(values);
-        setSelectedPage(values[0] || '');
+        setSelectedPage((current) => (values.includes(current) ? current : values[0] || ''));
       })
       .catch((err) => {
         if (active) setError(err.message);
@@ -42,7 +47,7 @@ export default function HeatmapPage() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [filters]);
 
   useEffect(() => {
     if (!selectedPage) {
@@ -54,7 +59,7 @@ export default function HeatmapPage() {
     setLoadingClicks(true);
     setError('');
 
-    fetchHeatmap(selectedPage)
+    fetchHeatmap(selectedPage, filters)
       .then((payload) => {
         if (active) setClicks(payload.data || []);
       })
@@ -68,7 +73,7 @@ export default function HeatmapPage() {
     return () => {
       active = false;
     };
-  }, [selectedPage, refreshToken]);
+  }, [selectedPage, refreshToken, filters]);
 
   useEffect(() => {
     function measure() {
@@ -111,6 +116,20 @@ export default function HeatmapPage() {
       </div>
 
       {error ? <div className="error">{error}</div> : null}
+
+      <div className="filterBar" aria-label="Heatmap filters">
+        <label>
+          <span>From</span>
+          <input type="datetime-local" value={filters.from} onChange={(event) => updateFilter('from', event.target.value)} />
+        </label>
+        <label>
+          <span>To</span>
+          <input type="datetime-local" value={filters.to} onChange={(event) => updateFilter('to', event.target.value)} />
+        </label>
+        <button className="button" type="button" onClick={() => setFilters({ from: '', to: '' })} disabled={!filters.from && !filters.to}>
+          Clear filters
+        </button>
+      </div>
 
       <section className="panel">
         {loadingPages || loadingClicks ? <div className="status">Loading heatmap data...</div> : null}
