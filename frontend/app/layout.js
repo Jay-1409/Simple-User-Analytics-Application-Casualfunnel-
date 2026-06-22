@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import NavLinks from './nav-links';
 import './globals.css';
 
 export const metadata = {
@@ -14,10 +15,7 @@ export default function RootLayout({ children }) {
           <Link className="brand" href="/sessions">
             Casualfunnel Analytics
           </Link>
-          <nav>
-            <Link href="/sessions">Sessions</Link>
-            <Link href="/heatmap">Heatmap</Link>
-          </nav>
+          <NavLinks />
         </header>
         <main className="shell">{children}</main>
       </body>
