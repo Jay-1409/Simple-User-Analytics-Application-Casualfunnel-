@@ -8,13 +8,89 @@
   --line-strong: rgba(212, 175, 55, 0.32);
   --accent: #d4af37;
   --accent-soft: #c9a44c;
-  --accent-dark: #8f7130;
+  --accent-muted: #e5c56a;
+  --accent-contrast: #14110b;
   --danger: #ffb3a8;
   --success: #d4af37;
+  --body-radial-a: rgba(212, 175, 55, 0.12);
+  --body-radial-b: rgba(201, 164, 76, 0.08);
+  --topbar-bg: rgba(14, 13, 11, 0.94);
+  --control-bg: rgba(26, 25, 22, 0.82);
+  --control-hover-bg: rgba(212, 175, 55, 0.08);
+  --field-bg: rgba(26, 25, 22, 0.92);
+  --filter-bg: rgba(26, 25, 22, 0.62);
+  --row-odd: #1a1916;
+  --row-even: #19180f;
+  --table-header-bg: rgba(212, 175, 55, 0.045);
+  --pagination-bg: rgba(14, 13, 11, 0.36);
+  --timeline-bg: rgba(26, 25, 22, 0.88);
+  --track-bg: rgba(14, 13, 11, 0.72);
+  --focus-ring: rgba(212, 175, 55, 0.1);
+  --heading-gradient: linear-gradient(90deg, #f4df91, var(--accent), #a67f2b);
+  --accent-gradient: linear-gradient(135deg, #f4df91, var(--accent));
+  --accent-gradient-soft: linear-gradient(135deg, #f4df91, var(--accent-soft));
+  --funnel-gradient: linear-gradient(90deg, #f4df91, var(--accent), var(--accent-soft));
+  --heatmap-bg: #12110f;
+  --heatmap-grid: rgba(212, 175, 55, 0.08);
+  --heatmap-radial: rgba(212, 175, 55, 0.11);
+  --heatmap-label-bg: rgba(26, 25, 22, 0.88);
+  --heatmap-dot: radial-gradient(circle, #fff3b0 0%, rgba(255, 208, 79, 0.92) 22%, rgba(212, 175, 55, 0.52) 48%, rgba(212, 175, 55, 0) 76%);
+  --heatmap-dot-shadow: 0 0 18px rgba(255, 208, 79, 0.55), 0 0 34px rgba(212, 175, 55, 0.28);
   --shadow: 0 20px 60px rgba(0, 0, 0, 0.42), 0 0 28px rgba(212, 175, 55, 0.08);
+  --soft-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+  --active-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+  --hover-shadow: 0 0 20px rgba(212, 175, 55, 0.08);
+  --input-scheme: dark;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--bg);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg: #fdf8f5;
+  --panel: #fffdfb;
+  --panel-alt: #fdf6f4;
+  --ink: #3a3432;
+  --muted: #7d6a69;
+  --line: rgba(217, 142, 160, 0.18);
+  --line-strong: rgba(178, 88, 110, 0.34);
+  --accent: #a64f66;
+  --accent-soft: #d9b48f;
+  --accent-muted: #984159;
+  --accent-contrast: #fffdfb;
+  --danger: #9f3a35;
+  --success: #9f6d24;
+  --body-radial-a: rgba(217, 142, 160, 0.18);
+  --body-radial-b: rgba(217, 180, 143, 0.16);
+  --topbar-bg: rgba(255, 253, 251, 0.92);
+  --control-bg: rgba(255, 255, 255, 0.84);
+  --control-hover-bg: rgba(217, 142, 160, 0.13);
+  --field-bg: rgba(255, 255, 255, 0.96);
+  --filter-bg: rgba(255, 253, 251, 0.72);
+  --row-odd: #ffffff;
+  --row-even: #fdf6f4;
+  --table-header-bg: rgba(217, 142, 160, 0.11);
+  --pagination-bg: rgba(255, 253, 251, 0.74);
+  --timeline-bg: rgba(255, 255, 255, 0.88);
+  --track-bg: rgba(253, 246, 244, 0.92);
+  --focus-ring: rgba(184, 95, 117, 0.14);
+  --heading-gradient: linear-gradient(90deg, #a64f66, #d98ea0, #7f4356);
+  --accent-gradient: linear-gradient(135deg, #e7adbb, #a64f66);
+  --accent-gradient-soft: linear-gradient(135deg, #f4cec8, #d9b48f);
+  --funnel-gradient: linear-gradient(90deg, #a64f66, #d98ea0, #f0c7d1);
+  --heatmap-bg: #fffdfb;
+  --heatmap-grid: rgba(217, 142, 160, 0.13);
+  --heatmap-radial: rgba(217, 142, 160, 0.16);
+  --heatmap-label-bg: rgba(255, 255, 255, 0.86);
+  --heatmap-dot: radial-gradient(circle, #fff4f6 0%, rgba(217, 142, 160, 0.95) 24%, rgba(166, 79, 102, 0.58) 50%, rgba(166, 79, 102, 0) 76%);
+  --heatmap-dot-shadow: 0 0 18px rgba(217, 142, 160, 0.52), 0 0 34px rgba(166, 79, 102, 0.22);
+  --shadow: 0 20px 60px rgba(88, 55, 48, 0.08), 0 0 28px rgba(217, 142, 160, 0.1);
+  --soft-shadow: 0 12px 34px rgba(88, 55, 48, 0.08);
+  --active-shadow: 0 0 16px rgba(217, 142, 160, 0.42);
+  --hover-shadow: 0 0 20px rgba(217, 142, 160, 0.12);
+  --input-scheme: light;
+  color-scheme: light;
 }
 
 * {
@@ -25,9 +101,30 @@ body {
   margin: 0;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 20% -10%, rgba(212, 175, 55, 0.12), transparent 30%),
-    radial-gradient(circle at 100% 10%, rgba(201, 164, 76, 0.08), transparent 26%),
+    radial-gradient(circle at 20% -10%, var(--body-radial-a), transparent 30%),
+    radial-gradient(circle at 100% 10%, var(--body-radial-b), transparent 26%),
     var(--bg);
+  color: var(--ink);
+}
+
+body,
+.topbar,
+.panel,
+.button,
+.iconButton,
+nav a,
+select,
+input,
+.timelineBody,
+.filterBar,
+.heatmapFrame,
+.funnelTrack {
+  transition:
+    background-color 200ms ease,
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease,
+    box-shadow 200ms ease;
 }
 
 a {
@@ -35,7 +132,8 @@ a {
 }
 
 button,
-select {
+select,
+input {
   font: inherit;
 }
 
@@ -43,10 +141,11 @@ select {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 18px;
   padding: 16px 28px;
   border-bottom: 1px solid var(--line);
-  background: rgba(14, 13, 11, 0.94);
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.26);
+  background: var(--topbar-bg);
+  box-shadow: var(--soft-shadow);
   backdrop-filter: blur(14px);
   position: sticky;
   top: 0;
@@ -60,19 +159,22 @@ select {
   text-decoration: none;
 }
 
+.navActions,
 nav {
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
 nav a,
 .button,
-.iconButton {
+.iconButton,
+.themeToggle {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   border: 1px solid var(--line);
-  background: rgba(26, 25, 22, 0.82);
+  background: var(--control-bg);
   color: var(--ink);
   border-radius: 999px;
   padding: 9px 12px;
@@ -92,10 +194,11 @@ nav a {
 }
 
 nav a:hover,
-nav a.active {
+nav a.active,
+.themeToggle:hover {
   color: var(--accent);
   border-color: var(--line-strong);
-  background: rgba(212, 175, 55, 0.08);
+  background: var(--control-hover-bg);
 }
 
 nav a.active::after {
@@ -107,31 +210,31 @@ nav a.active::after {
   content: "";
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 16px rgba(212, 175, 55, 0.5);
+  box-shadow: var(--active-shadow);
 }
 
 .button.primary {
   background: var(--accent);
   border-color: var(--accent);
-  color: #14110b;
+  color: var(--accent-contrast);
 }
 
 .button:hover:not(:disabled),
 .iconButton:hover:not(:disabled) {
   color: var(--accent);
   border-color: var(--line-strong);
-  background: rgba(212, 175, 55, 0.08);
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.08);
+  background: var(--control-hover-bg);
+  box-shadow: var(--hover-shadow);
   transform: translateY(-1px);
 }
 
 .iconButton {
   color: var(--accent-soft);
-  border-color: rgba(212, 175, 55, 0.28);
+  border-color: var(--line-strong);
 }
 
 .iconButton:hover:not(:disabled) {
-  color: #14110b;
+  color: var(--accent-contrast);
   background: var(--accent);
   border-color: var(--accent);
 }
@@ -139,9 +242,17 @@ nav a.active::after {
 .button:disabled,
 .iconButton:disabled {
   cursor: not-allowed;
-  color: rgba(168, 162, 147, 0.45);
-  border-color: rgba(212, 175, 55, 0.08);
-  opacity: 0.7;
+  color: color-mix(in srgb, var(--muted) 45%, transparent);
+  border-color: var(--line);
+  opacity: 0.62;
+}
+
+.themeToggle {
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  color: var(--accent);
+  padding: 0;
 }
 
 .shell {
@@ -162,7 +273,7 @@ nav a.active::after {
   margin: 0 0 6px;
   font-size: 30px;
   letter-spacing: 0.03em;
-  background: linear-gradient(90deg, #f4df91, var(--accent), #a67f2b);
+  background: var(--heading-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -205,15 +316,15 @@ th {
   font-weight: 700;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  background: rgba(212, 175, 55, 0.045);
+  background: var(--table-header-bg);
 }
 
 tbody tr:nth-child(odd) {
-  background: #1a1916;
+  background: var(--row-odd);
 }
 
 tbody tr:nth-child(even) {
-  background: #19180f;
+  background: var(--row-even);
 }
 
 tr.sessionRow {
@@ -221,13 +332,13 @@ tr.sessionRow {
 }
 
 tr.sessionRow:hover {
-  background: rgba(212, 175, 55, 0.08);
+  background: var(--control-hover-bg);
   box-shadow: inset 3px 0 0 var(--accent);
 }
 
 .mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  color: #e5c56a;
+  color: var(--accent-muted);
 }
 
 .muted {
@@ -242,8 +353,8 @@ tr.sessionRow:hover {
 .error {
   padding: 16px;
   color: var(--danger);
-  background: rgba(180, 35, 24, 0.14);
-  border: 1px solid rgba(255, 179, 168, 0.26);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger) 28%, transparent);
   border-radius: 10px;
 }
 
@@ -253,7 +364,7 @@ tr.sessionRow:hover {
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  background: rgba(14, 13, 11, 0.36);
+  background: var(--pagination-bg);
 }
 
 .timeline {
@@ -275,20 +386,20 @@ tr.sessionRow:hover {
   border-radius: 999px;
   display: grid;
   place-items: center;
-  color: #14110b;
-  background: linear-gradient(135deg, #f4df91, var(--accent));
-  box-shadow: 0 0 22px rgba(212, 175, 55, 0.18);
+  color: var(--accent-contrast);
+  background: var(--accent-gradient);
+  box-shadow: var(--hover-shadow);
 }
 
 .timelineIcon.click {
-  background: linear-gradient(135deg, #f4df91, var(--accent-soft));
+  background: var(--accent-gradient-soft);
 }
 
 .timelineBody {
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 14px;
-  background: rgba(26, 25, 22, 0.88);
+  background: var(--timeline-bg);
 }
 
 .timelineBody h2 {
@@ -321,8 +432,8 @@ tr.sessionRow:hover {
   padding: 14px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: rgba(26, 25, 22, 0.62);
-  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.22);
+  background: var(--filter-bg);
+  box-shadow: var(--soft-shadow);
 }
 
 .filterBar label {
@@ -347,9 +458,10 @@ tr.sessionRow:hover {
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 10px 12px;
-  background: rgba(26, 25, 22, 0.92);
+  background: var(--field-bg);
   color: var(--ink);
   outline: none;
+  color-scheme: var(--input-scheme);
   transition:
     border-color 180ms ease,
     box-shadow 180ms ease;
@@ -358,13 +470,13 @@ tr.sessionRow:hover {
 .filterBar input {
   flex: unset;
   max-width: none;
-  color-scheme: dark;
 }
 
 .toolbar select:focus,
-.filterBar input:focus {
+.filterBar input:focus,
+.funnelStepRow select:focus {
   border-color: var(--line-strong);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
 .heatmapFrame {
@@ -373,10 +485,10 @@ tr.sessionRow:hover {
   border: 1px solid var(--line);
   border-radius: 12px;
   background:
-    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.11), transparent 38%),
-    linear-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(212, 175, 55, 0.08) 1px, transparent 1px),
-    #12110f;
+    radial-gradient(circle at 50% 0%, var(--heatmap-radial), transparent 38%),
+    linear-gradient(var(--heatmap-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--heatmap-grid) 1px, transparent 1px),
+    var(--heatmap-bg);
   background-size: auto, 48px 48px, 48px 48px, auto;
   overflow: hidden;
 }
@@ -408,7 +520,7 @@ tr.sessionRow:hover {
   top: 12px;
   z-index: 3;
   color: var(--muted);
-  background: rgba(26, 25, 22, 0.88);
+  background: var(--heatmap-label-bg);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 7px 10px;
@@ -428,8 +540,8 @@ tr.sessionRow:hover {
   margin-left: -19px;
   margin-top: -19px;
   border-radius: 999px;
-  background: radial-gradient(circle, #fff3b0 0%, rgba(255, 208, 79, 0.92) 22%, rgba(212, 175, 55, 0.52) 48%, rgba(212, 175, 55, 0) 76%);
-  box-shadow: 0 0 18px rgba(255, 208, 79, 0.55), 0 0 34px rgba(212, 175, 55, 0.28);
+  background: var(--heatmap-dot);
+  box-shadow: var(--heatmap-dot-shadow);
   pointer-events: none;
   z-index: 2;
 }
@@ -484,8 +596,8 @@ tr.sessionRow:hover {
   place-items: center;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  color: #14110b;
-  background: linear-gradient(135deg, #f4df91, var(--accent));
+  color: var(--accent-contrast);
+  background: var(--accent-gradient);
   font-weight: 800;
 }
 
@@ -495,14 +607,10 @@ tr.sessionRow:hover {
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 10px 12px;
-  background: rgba(26, 25, 22, 0.92);
+  background: var(--field-bg);
   color: var(--ink);
   outline: none;
-}
-
-.funnelStepRow select:focus {
-  border-color: var(--line-strong);
-  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  color-scheme: var(--input-scheme);
 }
 
 .funnelChart {
@@ -541,7 +649,7 @@ tr.sessionRow:hover {
 
 .funnelMetric {
   flex: 0 0 auto;
-  color: #e5c56a;
+  color: var(--accent-muted);
   font-weight: 800;
 }
 
@@ -549,7 +657,7 @@ tr.sessionRow:hover {
   height: 36px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(14, 13, 11, 0.72);
+  background: var(--track-bg);
   overflow: hidden;
 }
 
@@ -557,9 +665,9 @@ tr.sessionRow:hover {
   height: 100%;
   min-width: 10px;
   border-radius: inherit;
-  background: linear-gradient(90deg, #f4df91, var(--accent), var(--accent-soft));
-  box-shadow: 0 0 22px rgba(212, 175, 55, 0.22);
-  transition: width 180ms ease;
+  background: var(--funnel-gradient);
+  box-shadow: var(--hover-shadow);
+  transition: width 180ms ease, opacity 180ms ease, background 200ms ease;
 }
 
 .funnelDropoff {
@@ -574,13 +682,22 @@ tr.sessionRow:hover {
     align-items: stretch;
   }
 
+  .navActions,
   nav {
     width: 100%;
+  }
+
+  nav {
+    flex: 1;
   }
 
   nav a {
     flex: 1;
     justify-content: center;
+  }
+
+  .themeToggle {
+    flex: 0 0 40px;
   }
 
   .filterBar label,

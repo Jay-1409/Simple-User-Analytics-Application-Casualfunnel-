@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reviews | Casualfunnel Demo Shop</title>
+    <link rel="stylesheet" href="/demo-pages.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav" aria-label="Demo shop navigation">
+        <a class="brand" href="/demo.html">
+          <strong>Casualfunnel Demo Shop</strong>
+          <span>Premium bundles for operators</span>
+        </a>
+        <div class="navLinks">
+          <a href="/products.html">Products</a>
+          <a class="active" href="/reviews.html">Reviews</a>
+          <a href="/checkout.html">Checkout</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="pageHero">
+        <div>
+          <p class="eyebrow">Customer proof</p>
+          <h1>Operators use the kit to ship checkout tests faster.</h1>
+          <p class="lede">
+            Reviews give the demo site a realistic consideration step between products and checkout. Use it as an
+            optional middle step in a funnel.
+          </p>
+        </div>
+        <aside class="panel">
+          <h3>Suggested funnel</h3>
+          <p>`/demo.html` to `/products.html` to `/reviews.html` to `/checkout.html`.</p>
+          <a class="button primary" href="/checkout.html">Continue to checkout</a>
+        </aside>
+      </section>
+
+      <section class="reviewGrid" aria-label="Customer reviews">
+        <article class="review">
+          <p class="quote">
+            "The kit gave our team a clear checkout experiment plan. We shipped the first test the same week."
+          </p>
+          <p><strong>Priya S.</strong><br />Lifecycle lead, direct-to-consumer brand</p>
+          <a class="button" href="/checkout.html">Build my checkout plan</a>
+        </article>
+
+        <article class="review">
+          <p class="quote">
+            "It helped us find missing analytics events before launch instead of after the campaign was live."
+          </p>
+          <p><strong>Marcus L.</strong><br />Growth manager, subscription commerce</p>
+          <button type="button">Download sample outline</button>
+        </article>
+
+        <article class="review">
+          <h2>Included in every bundle</h2>
+          <p>Funnel worksheet, QA checklist, abandoned cart copy, campaign review dashboard, and launch notes.</p>
+          <a class="button" href="/products.html">Compare bundles</a>
+        </article>
+
+        <article class="review">
+          <h2>Ready to reserve?</h2>
+          <p>Move to the checkout page to create a final page_view and complete the demo funnel path.</p>
+          <a class="button primary" href="/checkout.html">Reserve bundle</a>
+        </article>
+      </section>
+    </main>
+
+    <script src="/tracker.js"></script>
+    <script>
+      if (!new URLSearchParams(window.location.search).has('cf_preview')) {
+        window.Tracker.init({
+          apiUrl: window.location.origin
+        });
+      }
+    </script>
+  </body>
+</html>

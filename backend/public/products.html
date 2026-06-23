@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Products | Casualfunnel Demo Shop</title>
+    <link rel="stylesheet" href="/demo-pages.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav" aria-label="Demo shop navigation">
+        <a class="brand" href="/demo.html">
+          <strong>Casualfunnel Demo Shop</strong>
+          <span>Premium bundles for operators</span>
+        </a>
+        <div class="navLinks">
+          <a class="active" href="/products.html">Products</a>
+          <a href="/reviews.html">Reviews</a>
+          <a href="/checkout.html">Checkout</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="pageHero">
+        <div>
+          <p class="eyebrow">Product catalog</p>
+          <h1>Choose the bundle that matches your checkout work.</h1>
+          <p class="lede">
+            This page creates a clean second funnel step after the landing page. Product buttons move users to the
+            checkout page so the dashboard can show step-to-step conversion.
+          </p>
+        </div>
+        <aside class="panel">
+          <h3>Tracking note</h3>
+          <p>Opening this page records a `page_view` for `/products.html`; every product CTA records a click.</p>
+          <a class="button" href="/reviews.html">Read reviews first</a>
+        </aside>
+      </section>
+
+      <section class="productGrid" aria-label="Product bundles">
+        <article class="card">
+          <h2>Starter Kit</h2>
+          <p>Essential checkout copy blocks and an event QA checklist for small teams.</p>
+          <div class="price">$49</div>
+          <ul>
+            <li>Checkout copy library</li>
+            <li>Landing page checklist</li>
+            <li>Email capture pattern</li>
+          </ul>
+          <a class="button" href="/checkout.html">View starter checkout</a>
+        </article>
+
+        <article class="card">
+          <h2>Growth Kit</h2>
+          <p>Best for teams validating offer pages and cart flows before a campaign.</p>
+          <div class="price">$129</div>
+          <ul>
+            <li>Offer page wireframes</li>
+            <li>Cart recovery copy</li>
+            <li>Analytics review script</li>
+          </ul>
+          <a class="button primary" href="/checkout.html">Add growth kit</a>
+        </article>
+
+        <article class="card">
+          <h2>Scale Kit</h2>
+          <p>Operational templates for teams shipping multiple experiments per month.</p>
+          <div class="price">$249</div>
+          <ul>
+            <li>Experiment backlog</li>
+            <li>Executive reporting pack</li>
+            <li>Launch review workflow</li>
+          </ul>
+          <a class="button" href="/checkout.html">Compare scale plan</a>
+        </article>
+      </section>
+    </main>
+
+    <script src="/tracker.js"></script>
+    <script>
+      if (!new URLSearchParams(window.location.search).has('cf_preview')) {
+        window.Tracker.init({
+          apiUrl: window.location.origin
+        });
+      }
+    </script>
+  </body>
+</html>

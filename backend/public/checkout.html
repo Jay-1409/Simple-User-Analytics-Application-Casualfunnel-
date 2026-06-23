@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkout | Casualfunnel Demo Shop</title>
+    <link rel="stylesheet" href="/demo-pages.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="nav" aria-label="Demo shop navigation">
+        <a class="brand" href="/demo.html">
+          <strong>Casualfunnel Demo Shop</strong>
+          <span>Premium bundles for operators</span>
+        </a>
+        <div class="navLinks">
+          <a href="/products.html">Products</a>
+          <a href="/reviews.html">Reviews</a>
+          <a class="active" href="/checkout.html">Checkout</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="pageHero">
+        <div>
+          <p class="eyebrow">Checkout</p>
+          <h1>Reserve the Growth Commerce Suite.</h1>
+          <p class="lede">
+            This is the final conversion page for the demo funnel. The form is intentionally static; clicks are tracked,
+            but no payment or lead data is submitted.
+          </p>
+        </div>
+        <aside class="panel">
+          <h3>Conversion target</h3>
+          <p>Use this page as the last step in the funnel analysis route.</p>
+          <a class="button" href="/products.html">Back to products</a>
+        </aside>
+      </section>
+
+      <section class="checkoutLayout">
+        <aside class="checkout">
+          <h2>Order summary</h2>
+          <div class="summaryLine">
+            <span>Growth Commerce Suite</span>
+            <strong>$129</strong>
+          </div>
+          <div class="summaryLine">
+            <span>Launch worksheet</span>
+            <strong>Included</strong>
+          </div>
+          <div class="summaryLine">
+            <span>Pilot support</span>
+            <strong>$0</strong>
+          </div>
+          <div class="summaryLine">
+            <span>Total due today</span>
+            <strong>$129</strong>
+          </div>
+          <p class="fineprint">No payment is processed on this demo page.</p>
+        </aside>
+
+        <form class="checkout">
+          <label>
+            Work email
+            <input type="email" name="email" placeholder="you@company.com" autocomplete="email" />
+          </label>
+          <label>
+            Team size
+            <select name="team_size">
+              <option>1-5 people</option>
+              <option>6-20 people</option>
+              <option>21-100 people</option>
+              <option>100+ people</option>
+            </select>
+          </label>
+          <label>
+            Primary goal
+            <select name="goal">
+              <option>Improve checkout conversion</option>
+              <option>Reduce abandoned carts</option>
+              <option>Launch a new product</option>
+              <option>Review analytics quality</option>
+            </select>
+          </label>
+          <label>
+            Notes
+            <textarea name="notes" placeholder="Optional launch context"></textarea>
+          </label>
+          <button class="primary" type="button">Complete demo checkout</button>
+          <p class="fineprint">The tracker records click coordinates, page URL, timestamp, and viewport data only.</p>
+        </form>
+      </section>
+    </main>
+
+    <script src="/tracker.js"></script>
+    <script>
+      if (!new URLSearchParams(window.location.search).has('cf_preview')) {
+        window.Tracker.init({
+          apiUrl: window.location.origin
+        });
+      }
+    </script>
+  </body>
+</html>

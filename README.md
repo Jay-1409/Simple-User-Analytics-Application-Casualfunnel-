@@ -13,7 +13,40 @@ Lightweight session analytics with a standalone Express ingestion API, append-on
 
 ## Architecture
 
-The browser SDK generates or refreshes a session id, queues `page_view` and `click` events, records page views on hash/history URL changes, and flushes batches every 5 seconds, at 10 queued events, or during unload with `navigator.sendBeacon`. The API validates the full batch, stamps the authoritative server `timestamp`, stores the browser's `client_timestamp` separately, and inserts with `insertMany`. MongoDB remains an append-only event log; sessions are computed with `$group` over `session_id`, and heatmaps query click events by page URL.
+Casualfunnel is split into three deployable pieces: a standalone tracker script, an Express API, and a Next.js dashboard. The tracker is embedded on any page with a plain `<script>` tag and sends batched telemetry to the Express API. The dashboard is only a client of that API; it does not own ingestion logic or use Next.js API routes.
+
+```mermaid
+flowchart LR
+  Page[Tracked webpage] --> Tracker[tracker.js queue]
+  Tracker -->|batched POST /api/events| API[Express API]
+  API -->|validated insertMany| Mongo[(MongoDB events)]
+  Dashboard[Next.js dashboard] -->|sessions / heatmap / funnels| API
+  API -->|aggregation + queries| Mongo
+```
+
+### Write Path
+
+The browser SDK generates or refreshes a session id, queues `page_view` and `click` events, records page views on hash/history URL changes, and flushes batches every 5 seconds, at 10 queued events, or during unload with `navigator.sendBeacon`. The API validates the full batch, stamps the authoritative server `timestamp`, stores the browser's `client_timestamp` separately for clock-skew/debugging, adds `user_agent`, and writes with `insertMany`.
+
+### Read Models
+
+MongoDB remains an append-only event log. There is no separate `sessions` collection, so there is no redundant write path that can drift out of sync.
+
+- Sessions are derived with a MongoDB aggregation grouped by `session_id`, with first/last timestamps, event count, and distinct page count.
+- Session journeys read ordered events by `session_id` using the `{ session_id: 1, timestamp: 1 }` index.
+- Heatmaps query `click` events by exact `page_url`, then scale `x`/`y` using the stored viewport dimensions.
+- Funnels analyze ordered `page_view` progression by session. Events are matched by exact `page_url`; each later step must occur after the previously matched step. `client_timestamp` is used as a tie-breaker when events in the same batch share the same server timestamp.
+
+### Dashboard
+
+The dashboard uses Next.js App Router routes for shareable views:
+
+- `/sessions`: paginated session table with date filtering.
+- `/sessions/[sessionId]`: ordered event journey for one session.
+- `/heatmap`: page selector and normalized click-density grid with date filtering.
+- `/funnels`: 2-4 step funnel builder using tracked page-view URLs and a horizontal conversion chart.
+
+All API calls are centralized in `frontend/lib/api.js`, and the base URL comes from `NEXT_PUBLIC_API_URL` so the same dashboard can target local Docker, Render, or another deployed backend.
 
 ## Setup With Docker
 
@@ -145,7 +178,8 @@ Request:
 {
   "steps": [
     "http://localhost:4000/demo.html",
-    "http://localhost:4000/demo.html#products"
+    "http://localhost:4000/products.html",
+    "http://localhost:4000/checkout.html"
   ]
 }
 ```
@@ -163,11 +197,18 @@ Response:
       "dropoffFromPrevious": null
     },
     {
-      "step": "http://localhost:4000/demo.html#products",
+      "step": "http://localhost:4000/products.html",
       "stepIndex": 2,
       "sessionsReached": 18,
       "conversionRate": 42.857142857142854,
       "dropoffFromPrevious": 57.14285714285714
+    },
+    {
+      "step": "http://localhost:4000/checkout.html",
+      "stepIndex": 3,
+      "sessionsReached": 12,
+      "conversionRate": 28.57142857142857,
+      "dropoffFromPrevious": 33.33333333333333
     }
   ]
 }
@@ -234,4 +275,4 @@ Failed interval batches are requeued and the queue is capped at 200 events. That
 Live demo links:
 
 - Frontend: add Vercel URL after deployment.
-- Backend demo page: add Render `/demo.html` URL after deployment.
+- Backend demo pages: add Render `/demo.html`, `/products.html`, `/reviews.html`, and `/checkout.html` URLs after deployment.
